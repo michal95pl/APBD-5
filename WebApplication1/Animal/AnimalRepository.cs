@@ -23,7 +23,7 @@ public class AnimalRepository : IAnimalRepository
     {
         switch (orderBy)
         {
-            case "IdAnimal": return true;
+            case "idAnimal": return true;
             case "Name": return true;
             case "Description": return true;
             case "Category": return true;
@@ -38,8 +38,8 @@ public class AnimalRepository : IAnimalRepository
         using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
         connection.Open();
         
-        using var command = new SqlCommand("SELECT IdAnimal, Name, Description, Category, Area FROM Animal" +
-            (CheckOrderBy(orderBy)? $" ORDER BY {orderBy}" : ""), connection);
+        using var command = new SqlCommand("SELECT IdAnimal, Name, Description, Category, Area FROM Animal ORDER BY " +
+            (CheckOrderBy(orderBy)? orderBy : "name"), connection);
         
         using var reader = command.ExecuteReader();
         
